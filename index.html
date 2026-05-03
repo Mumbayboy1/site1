@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    
     <style>
         :root {
             --bg-color: #f9f9f9;
@@ -224,7 +226,6 @@
 <body>
 
     <section class="container text-center">
-        <!-- Добавлены ID для связи с CMS -->
         <h1 id="hero-title" style="font-size: 2.8em; margin-bottom: 20px;">Мастер-класс по современному дизайну</h1>
         <p id="hero-subtitle" class="subtitle">Откройте для себя секреты профессионального дизайна и создавайте проекты, которые вдохновляют. Присоединяйтесь к сообществу творческих людей.</p>
         <a href="#form" class="btn">Записаться на курс</a>
@@ -256,12 +257,10 @@
     <section class="container">
         <div class="author-section">
             <div class="author-img">
-                <!-- Добавлен ID для фото -->
                 <img id="author-image" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Фото автора курса">
             </div>
             <div class="author-content">
                 <h2>Об авторе курса</h2>
-                <!-- Добавлены ID для автора -->
                 <div id="author-name" class="author-name">Мария Соколова</div>
                 <p id="author-desc" class="author-desc">Ведущий дизайнер с 12-летним опытом работы в международных компаниях. Сертифицированный преподаватель, чьи студенты работают в Google, Apple, Meta и других крупных компаниях.</p>
                 
@@ -352,13 +351,10 @@
 
     <section id="form" class="container text-center" style="margin-bottom: 60px;">
         <div class="form-wrapper">
-            <!-- Добавлены ID для формы -->
             <h2 id="form-title" style="font-size: 2.2em; margin-bottom: 10px; margin-top: 0;">Начните свой путь сегодня</h2>
             <p id="form-subtitle" class="subtitle" style="margin-bottom: 30px;">Оставьте свои контактные данные, и мы свяжемся с вами</p>
             
-            <!-- Добавили атрибуты name и data-netlify="true" -->
             <form name="course-signup" method="POST" data-netlify="true">
-                <!-- Обязательное скрытое поле для работы Netlify Forms -->
                 <input type="hidden" name="form-name" value="course-signup" />
                 
                 <div class="form-group">
@@ -378,7 +374,6 @@
         </div>
     </section>
 
-    <!-- СКРИПТ ПОДКЛЮЧЕНИЯ CMS -->
     <script>
         fetch('./content.json')
             .then(response => {
@@ -396,6 +391,18 @@
                 if(data.form_subtitle) document.getElementById('form-subtitle').innerText = data.form_subtitle;
             })
             .catch(err => console.log('Используется контент из HTML. Это нормально, если CMS еще не запускалась.', err));
+    </script>
+
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
     </script>
 </body>
 </html>
