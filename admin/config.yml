@@ -1,0 +1,32 @@
+backend:
+  name: git-gateway
+  branch: main # Если у тебя в гите ветка называется master, поменяй тут на master
+
+media_folder: "images" # Сюда будут падать картинки, которые загрузит клиент
+public_folder: "/images"
+
+collections:
+  - name: "landing"
+    label: "Управление сайтом"
+    files:
+      - file: "content.json"
+        label: "Тексты на главной странице"
+        name: "index"
+        fields:
+          - { label: "Главный заголовок", name: "hero_title", widget: "string" }
+          - { label: "Подзаголовок", name: "hero_subtitle", widget: "text" }
+          
+          - label: "Блок автора"
+            name: "author_section"
+            widget: "object"
+            fields:
+              - { label: "Имя автора", name: "author_name", widget: "string" }
+              - { label: "Описание (регалии)", name: "author_desc", widget: "text" }
+              - { label: "Фото автора", name: "author_image", widget: "image", required: false }
+              
+          - label: "Блок формы заявки"
+            name: "form_section"
+            widget: "object"
+            fields:
+              - { label: "Заголовок над формой", name: "form_title", widget: "string" }
+              - { label: "Текст под заголовком", name: "form_subtitle", widget: "text" }
